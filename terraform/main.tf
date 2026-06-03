@@ -75,7 +75,7 @@ module "ec2" {
   public_subnet_ids      = module.vpc.public_subnet_ids
   private_app_subnet_ids = module.vpc.private_app_subnet_ids
   instance_type          = var.instance_type
-  ami_id                 = var.ami_id
+  ami_id                 = data.aws_ami.amazon_linux.id
   asg_min_size           = var.asg_min_size
   asg_max_size           = var.asg_max_size
   asg_desired_capacity   = var.asg_desired_capacity
@@ -83,6 +83,7 @@ module "ec2" {
   ec2_sg_id              = module.iam.ec2_security_group_id
   alb_sg_id              = module.iam.alb_security_group_id
   log_groups_names       = module.observability.log_groups_names
+  microservice_images    = var.microservice_images
 
 }
 
@@ -114,10 +115,23 @@ module "observability" {
 
   project_name        = var.project_name
   environment         = var.environment
-  aws_region          = var.aws_region
   alarm_email         = var.alarm_email
   cpu_alarm_threshold = var.cpu_alarm_threshold
   alb_5xx_threshold   = var.alb_5xx_threshold
   asg_name            = module.ec2.asg_name
   alb_arn_suffix      = module.ec2.alb_arn_suffix
+}
+
+
+
+# gets AWS AMI
+# ---------------
+data "aws_ami" "amazon_linux" {
+  most_recent = true
+  owners      = ["amazon"]
+
+  filter {
+    name   = "name"
+    values = ["amzn2-ami-hvm-*-x86_64-gp2"]
+  }
 }

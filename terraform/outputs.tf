@@ -52,5 +52,5 @@ output "asg_name" {
 
 output "cloudwatch_log_group_names" {
   description = "Names of the CloudWatch Log Groups for each microservice"
-  value       = module.observability.log_group_names
+  value       = module.observability.log_groups_names
 }

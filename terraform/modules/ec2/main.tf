@@ -17,7 +17,8 @@ resource "aws_launch_template" "app_lt" {
   monitoring {
     enabled = true
   }
-  # create log group!!!!!!!!!!!!!!!!!!!
+
+  # need to add login infor to the image storage
   user_data = base64encode(join("\n", concat(
     [
       "#!/bin/bash",
