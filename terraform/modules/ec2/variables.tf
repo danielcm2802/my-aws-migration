@@ -1,5 +1,5 @@
 variable "project_name" {
-    type = string
+  type = string
 }
 
 variable "environment" {
@@ -7,7 +7,7 @@ variable "environment" {
 }
 
 variable "aws_region" {
-    type = string
+  type = string
 }
 
 variable "vpc_id" {
@@ -24,10 +24,6 @@ variable "instance_type" {
 
 variable "ec2_instance_profile" {
   type = string
-}
-
-variable "microservice_names" {
-    type = list(string)
 }
 
 variable "asg_min_size" {
@@ -47,5 +43,31 @@ variable "private_app_subnet_ids" {
 }
 
 variable "public_subnet_ids" {
+  type = list(string)
+}
+
+variable "alb_sg_id" {
+  type = string
+}
+
+variable "ec2_sg_id" {
+  type = string
+}
+
+variable "microservice_images" {
+  type = list(string)
+  default = [
+    "nginx:latest",
+    "nginx:latest",
+    "nginx:latest",
+    "nginx:latest",
+    "nginx:latest",
+    "nginx:latest",
+    "nginx:latest",
+    "nginx:latest"
+  ]
+}
+
+variable "log_groups_names" {
   type = list(string)
 }

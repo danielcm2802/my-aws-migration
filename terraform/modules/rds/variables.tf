@@ -1,13 +1,9 @@
 variable "project_name" {
-    type = string
+  type = string
 }
 
 variable "environment" {
   type = string
-}
-
-variable "aws_region" {
-    type = string
 }
 
 variable "db_instance_class" {
@@ -23,7 +19,7 @@ variable "db_name" {
 }
 
 variable "db_username" {
-  type = string
+  type      = string
   sensitive = true
 }
 
@@ -37,4 +33,8 @@ variable "db_password_secret_arn" {
 
 variable "private_db_subnet_ids" {
   type = list(string)
+}
+
+variable "rds_sg_id" {
+  type = string
 }
