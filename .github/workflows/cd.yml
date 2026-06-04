@@ -37,3 +37,14 @@ jobs:
         with:
           name: terraform-plan
           path: ${{ vars.TF_PATH }}/plan.txt
+
+      - name: Post Summary
+        run: |
+          echo "## Terraform Plan Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Status" >> $GITHUB_STEP_SUMMARY
+          echo "Terraform plan completed successfully." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## Terraform Plan Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          grep "Plan:" plan.txt >> $GITHUB_STEP_SUMMARY
