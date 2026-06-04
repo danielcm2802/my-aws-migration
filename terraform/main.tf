@@ -22,6 +22,7 @@ terraform {
 provider "aws" {
   region = var.aws_region
 
+  # can be removed if have account and OIDC arm
   access_key                  = "mock"
   secret_key                  = "mock"
   skip_credentials_validation = true

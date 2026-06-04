@@ -1,0 +1,19 @@
+name: CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  plan-artifact:
+    - name: Terraform Plan to file
+      run: |
+        terraform plan -out=tfplan
+        terraform show -no-color tfplan > plan.txt
+
+    - name: Upload Plan
+      uses: actions/upload-artifact@v4
+      with:
+        name: terraform-plan
+        path: plan.txt
