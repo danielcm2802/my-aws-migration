@@ -75,12 +75,6 @@ variable "asg_desired_capacity" {
   default     = 2
 }
 
-variable "ami_id" {
-  description = "AMI ID for the EC2 Launch Template"
-  type        = string
-  default     = "ami-0c02fb55956c7d316"
-}
-
 variable "microservice_images" {
   type = list(string)
   default = [
