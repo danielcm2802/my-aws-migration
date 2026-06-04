@@ -98,7 +98,7 @@ jobs:
       - name: Configure AWS credentials via OIDC
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: ${{ secrets.AWS_ROLE_ARN }} # need to create a secret in github variables so the 
+          role-to-assume: arn:aws:iam::123456789012:role/microservices-platform-github-actions-role # need to create a secret in github variable for 
           aws-region: us-east-1
         continue-on-error: true
 
