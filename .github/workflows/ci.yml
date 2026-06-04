@@ -21,23 +21,23 @@ jobs:
         with:
           terraform_version: 1.6.6
 
-      # 1. Check formatting
+      # Check formatting
       - name: Terraform Format Check
         run: terraform fmt -check -recursive
 
-      # 2. Init (needed for validate)
+      # Init 
       - name: Terraform Init
         run: terraform init -backend=false
 
-      # 3. Validate syntax
+      # Validate syntax
       - name: Terraform Validate
         run: terraform validate
 
-      # 4. Install TFLint
+      # Install TFLint
       - name: Install TFLint
         run: |
           curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
 
-      # 5. Run TFLint
+      # Run TFLint
       - name: Run TFLint
         run: tflint --init && tflint
