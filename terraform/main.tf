@@ -84,7 +84,7 @@ module "ec2" {
   public_subnet_ids      = module.vpc.public_subnet_ids
   private_app_subnet_ids = module.vpc.private_app_subnet_ids
   instance_type          = var.instance_type
-  ami_id                 = data.aws_ami.amazon_linux.id
+  ami_id                 = "mock variable" # put: data.aws_ami.amazon_linux.id and remove comment at line 139-147
   asg_min_size           = var.asg_min_size
   asg_max_size           = var.asg_max_size
   asg_desired_capacity   = var.asg_desired_capacity
@@ -134,14 +134,14 @@ module "observability" {
 
 
 
-# gets AWS AMI
+# gets AWS AMI. no account so mock variable instead
 # ---------------
-data "aws_ami" "amazon_linux" {
-  most_recent = true
-  owners      = ["amazon"]
+# data "aws_ami" "amazon_linux" {
+#   most_recent = true
+#   owners      = ["amazon"]
 
-  filter {
-    name   = "name"
-    values = ["amzn2-ami-hvm-*-x86_64-gp2"]
-  }
-}
+#   filter {
+#     name   = "name"
+#     values = ["amzn2-ami-hvm-*-x86_64-gp2"]
+#   }
+# }

@@ -1,6 +1,6 @@
 variable "project_name" {
   type    = string
-  default = "my AWS migration"
+  default = "my-aws-migration"
 }
 
 variable "environment" {
