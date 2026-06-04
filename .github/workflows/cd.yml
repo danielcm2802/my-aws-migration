@@ -15,6 +15,13 @@ jobs:
         working-directory: ${{ vars.TF_PATH }}
     
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Terraform Init
+        run: |
+          terraform init -backend=false
+      
       - name: Terraform plan
         run: |
           terraform plan -out=tfplan
