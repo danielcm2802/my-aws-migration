@@ -257,19 +257,6 @@ resource "aws_s3_bucket_public_access_block" "shared_storage" {
   restrict_public_buckets = true
 }
 
-resource "aws_s3_bucket_lifecycle_configuration" "shared_storage" {
-  bucket = aws_s3_bucket.shared_storage.id
-
-  rule {
-    id     = "expire-old-files"
-    status = "Enabled"
-
-    expiration {
-      days = 90
-    }
-  }
-}
-
 
 
 # OIDC connection to github + role

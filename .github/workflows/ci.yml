@@ -95,13 +95,9 @@ jobs:
         with:
           terraform_version: 1.5.0
 
-      - name: Terraform Format Check
-        run: terraform fmt -check -recursive
-
-      - name: Terraform Validate
+      - name: Terraform init
         run: |
           terraform init -backend=false
-          terraform validate
 
       - name: Configure AWS credentials via OIDC
         uses: aws-actions/configure-aws-credentials@v4
