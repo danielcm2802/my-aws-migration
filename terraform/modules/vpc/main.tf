@@ -167,7 +167,8 @@ resource "aws_route_table_association" "private_db_subnet_rta" {
 }
 
 
-# vpc endpoint for aws S3
+
+# vpc endpoints
 # -------------------------------
 resource "aws_vpc_endpoint" "s3_endpnt" {
   vpc_id            = aws_vpc.vpc.id
@@ -184,4 +185,13 @@ resource "aws_vpc_endpoint" "s3_endpnt" {
     Name        = "${var.project_name}-s3-endpoint"
     Environment = var.environment
   }
+}
+
+resource "aws_vpc_endpoint" "secretsmanager" {
+  vpc_id              = aws_vpc.vpc.id
+  service_name        = "com.amazonaws.us-east-1.secretsmanager"
+  vpc_endpoint_type   = "Interface"
+  subnet_ids          = aws_subnet.private_app_sub[*].id
+  security_group_ids  = [var.ec2_sg_id]
+  private_dns_enabled = true
 }

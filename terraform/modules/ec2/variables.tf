@@ -56,16 +56,6 @@ variable "ec2_sg_id" {
 
 variable "microservice_images" {
   type = list(string)
-  default = [
-    "nginx:latest",
-    "nginx:latest",
-    "nginx:latest",
-    "nginx:latest",
-    "nginx:latest",
-    "nginx:latest",
-    "nginx:latest",
-    "nginx:latest"
-  ]
 }
 
 variable "log_groups_names" {
