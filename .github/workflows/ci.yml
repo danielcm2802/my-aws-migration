@@ -1,0 +1,43 @@
+name: CI Pipeline
+
+on:
+  push:    
+  pull_request:
+    branches:
+      - main
+
+
+jobs:
+  lint-validate:
+    name: Lint and Validate Terraform
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.6.6
+
+      # 1. Check formatting
+      - name: Terraform Format Check
+        run: terraform fmt -check -recursive
+
+      # 2. Init (needed for validate)
+      - name: Terraform Init
+        run: terraform init -backend=false
+
+      # 3. Validate syntax
+      - name: Terraform Validate
+        run: terraform validate
+
+      # 4. Install TFLint
+      - name: Install TFLint
+        run: |
+          curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+
+      # 5. Run TFLint
+      - name: Run TFLint
+        run: tflint --init && tflint
