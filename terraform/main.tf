@@ -10,13 +10,13 @@ terraform {
 
 
   # need to create before running terraform init
-  backend "s3" {
-    bucket         = "my-aws-migration-tfstate"
-    key            = "prod/terraform.tfstate"
-    region         = "us-east-1"
-    dynamodb_table = "my-aws-migration-tflock"
-    encrypt        = true
-  }
+  # backend "s3" {
+  #   bucket         = "my-aws-migration-tfstate"
+  #   key            = "prod/terraform.tfstate"
+  #   region         = "us-east-1"
+  #   dynamodb_table = "my-aws-migration-tflock"
+  #   encrypt        = true
+  # }
 }
 
 provider "aws" {
