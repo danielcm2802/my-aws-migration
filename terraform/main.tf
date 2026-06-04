@@ -22,6 +22,9 @@ terraform {
 provider "aws" {
   region = var.aws_region
 
+  access_key = "mock"
+  secret_key = "mock"
+
   default_tags {
     tags = {
       Project     = var.project_name
