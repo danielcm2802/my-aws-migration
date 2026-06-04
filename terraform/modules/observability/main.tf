@@ -25,6 +25,7 @@ resource "aws_cloudwatch_log_group" "microservice" {
 
   name              = "/apps/microservice-${count.index + 1}"
   retention_in_days = 365
+  kms_key_id        = aws_kms_key.cloudwatch.arn
 
   tags = {
     Name        = "/apps/microservice-${count.index + 1}"
@@ -32,7 +33,15 @@ resource "aws_cloudwatch_log_group" "microservice" {
   }
 }
 
+resource "aws_kms_key" "cloudwatch" {
+  deletion_window_in_days = 7
+  enable_key_rotation     = true
 
+  tags = {
+    Name        = "${var.project_name}-cloudwatch-key"
+    Environment = var.environment
+  }
+}
 
 # alarms
 # --------------
