@@ -151,11 +151,11 @@ variable "alarm_email" {
 # github credentials
 # ------------------------
 variable "github_user" {
-  type = string
+  type    = string
   default = "danielcm2802"
 }
 
 variable "repo_name" {
-  type = string
+  type    = string
   default = "my-aws-migration"
 }
