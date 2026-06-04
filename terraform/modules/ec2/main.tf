@@ -146,7 +146,6 @@ resource "aws_lb_listener" "http" {
   }
 }
 
-# HTTPS → forward to EC2
 resource "aws_lb_listener" "https" {
   load_balancer_arn = aws_lb.app_lb.arn
   port              = 443

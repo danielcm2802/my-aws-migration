@@ -95,14 +95,10 @@ jobs:
         with:
           terraform_version: 1.5.0
 
-      - name: Terraform init
-        run: |
-          terraform init -backend=false
-
       - name: Configure AWS credentials via OIDC
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }} # need to create a secret in github variables so the 
           aws-region: us-east-1
         continue-on-error: true
 
