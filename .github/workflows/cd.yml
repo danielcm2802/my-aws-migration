@@ -7,13 +7,21 @@ on:
 
 jobs:
   plan-artifact:
-    - name: Terraform Plan to file
-      run: |
-        terraform plan -out=tfplan
-        terraform show -no-color tfplan > plan.txt
+    name: Terraform plan to file
+    runs-on: ubuntu-latest
 
-    - name: Upload Plan
-      uses: actions/upload-artifact@v4
-      with:
-        name: terraform-plan
-        path: plan.txt
+    defaults:
+      run:
+        working-directory: ${{ vars.TF_PATH }}
+    
+    steps:
+      - name: Terraform plan
+        run: |
+          terraform plan -out=tfplan
+          terraform show -no-color tfplan > plan.txt
+
+      - name: Upload plan artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: terraform-plan
+          path: plan.txt
