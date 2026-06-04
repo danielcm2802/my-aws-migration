@@ -46,6 +46,7 @@ module "vpc" {
   public_subnet_cidr      = var.public_subnet_cidrs
   private_app_subnet_cidr = var.private_app_subnet_cidrs
   private_db_subnet_cidr  = var.private_db_subnet_cidrs
+  ec2_sg_id               = module.iam.ec2_security_group_id
 }
 
 
@@ -59,6 +60,8 @@ module "iam" {
   environment  = var.environment
   aws_region   = var.aws_region
   vpc_id       = module.vpc.vpc_id
+  github_user  = var.github_user
+  repo_name    = var.repo_name
 }
 
 

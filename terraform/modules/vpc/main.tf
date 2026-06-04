@@ -7,7 +7,6 @@ resource "aws_vpc" "vpc" {
     Name        = "${var.project_name}-vpc"
     Environment = var.environment
   }
-
 }
 
 
