@@ -120,7 +120,7 @@ resource "aws_security_group" "alb_sg" {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"] #checkov:skip=CKV_AWS_382: EC2 requires unrestricted egress for AWS service access
+    cidr_blocks = ["0.0.0.0/0"] #checkov:skip=CKV_AWS_260: ALB must accept public HTTP traffic by design
   }
 
   ingress {
@@ -128,7 +128,7 @@ resource "aws_security_group" "alb_sg" {
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"] #checkov:skip=CKV_AWS_382: EC2 requires unrestricted egress for AWS service access
+    cidr_blocks = ["0.0.0.0/0"] #checkov:skip=CKV_AWS_260: ALB must accept public HTTP traffic by design
   }
 
   egress {
