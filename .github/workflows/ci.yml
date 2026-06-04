@@ -55,12 +55,11 @@ jobs:
         with:
           directory: ./terraform
           framework: terraform
-          check: >
-            CKV_SECRET_*
-            CKV_AWS_20
-            CKV_AWS_23
-            CKV_AWS_3
-            CKV_AWS_16
+          security-scan:
+            only:
+              - secrets
+              - network exposure
+              - encryptio
           soft_fail: false
           output_format: cli
 
