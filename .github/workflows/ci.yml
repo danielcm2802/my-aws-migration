@@ -61,6 +61,6 @@ jobs:
             CKV_AWS_23
             CKV_AWS_3
             CKV_AWS_16
-          soft_fail: true
+          soft_fail: false
 
   
