@@ -161,6 +161,6 @@ variable "repo_name" {
 }
 
 variable "acm_certificate_arn" {
-  type = string
+  type    = string
   default = "arn:aws:acm:us-east-1:123456789012:certificate/dummy"
 }
