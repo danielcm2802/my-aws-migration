@@ -24,7 +24,7 @@ resource "aws_cloudwatch_log_group" "microservice" {
   count = 8
 
   name              = "/apps/microservice-${count.index + 1}"
-  retention_in_days = 30
+  retention_in_days = 365
 
   tags = {
     Name        = "/apps/microservice-${count.index + 1}"

@@ -61,3 +61,7 @@ variable "microservice_images" {
 variable "log_groups_names" {
   type = list(string)
 }
+
+variable "acm_certificate_arn" {
+  type = string
+}

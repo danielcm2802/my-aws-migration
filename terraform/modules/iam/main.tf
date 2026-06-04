@@ -123,6 +123,14 @@ resource "aws_security_group" "alb_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  ingress {
+    description = "HTTPS from internet"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   egress {
     description = "All outbound"
     from_port   = 0
@@ -151,7 +159,7 @@ resource "aws_security_group" "ec2_sg" {
   }
 
   egress {
-    description = "All outbound (for Docker pulls, Secrets Manager, etc.)"
+    description = "All outbound"
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
@@ -247,6 +255,19 @@ resource "aws_s3_bucket_public_access_block" "shared_storage" {
   block_public_policy     = true
   ignore_public_acls      = true
   restrict_public_buckets = true
+}
+
+resource "aws_s3_bucket_lifecycle_configuration" "shared_storage" {
+  bucket = aws_s3_bucket.shared_storage.id
+
+  rule {
+    id     = "expire-old-files"
+    status = "Enabled"
+
+    expiration {
+      days = 90
+    }
+  }
 }
 
 

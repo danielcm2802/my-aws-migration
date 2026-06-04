@@ -87,6 +87,7 @@ module "ec2" {
   alb_sg_id              = module.iam.alb_security_group_id
   log_groups_names       = module.observability.log_groups_names
   microservice_images    = var.microservice_images
+  acm_certificate_arn = var.acm_certificate_arn
 
 }
 

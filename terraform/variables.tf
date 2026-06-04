@@ -159,3 +159,8 @@ variable "repo_name" {
   type    = string
   default = "my-aws-migration"
 }
+
+variable "acm_certificate_arn" {
+  type = string
+  default = "arn:aws:acm:us-east-1:123456789012:certificate/dummy"
+}
