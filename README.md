@@ -19,6 +19,12 @@ The infrastructure runs across two availability zones (`us-east-1a` and `us-east
 
 ---
 
+## Architecture
+
+![Architecture Diagram](architecture.png)
+
+---
+
 ## Prerequisites
 
 Before running or deploying this project, ensure you have the following installed.
