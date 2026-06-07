@@ -65,7 +65,6 @@ module "iam" {
 
   project_name = var.project_name
   environment  = var.environment
-  aws_region   = var.aws_region
   vpc_id       = module.vpc.vpc_id
 }
 
@@ -83,7 +82,7 @@ module "ec2" {
   public_subnet_ids      = module.vpc.public_subnet_ids
   private_app_subnet_ids = module.vpc.private_app_subnet_ids
   instance_type          = var.instance_type
-  ami_id                 = "mock variable" # put: data.aws_ami.amazon_linux.id and remove comment at line 139-147
+  ami_id                 = "mock variable" # put: data.aws_ami.amazon_linux.id and remove comment at the bottom of file
   asg_min_size           = var.asg_min_size
   asg_max_size           = var.asg_max_size
   asg_desired_capacity   = var.asg_desired_capacity
@@ -133,7 +132,7 @@ module "observability" {
 
 
 
-# gets AWS AMI. no account so mock variable instead
+# gets AWS AMI. no account so mock variable instead(remove here if needed)
 # ---------------
 # data "aws_ami" "amazon_linux" {
 #   most_recent = true

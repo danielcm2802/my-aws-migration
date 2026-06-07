@@ -1,3 +1,14 @@
+terraform {
+  required_version = ">= 1.5.0"
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+}
+
 # IAM EC2 role
 # -------------------
 resource "aws_iam_role" "ec2_role" {
