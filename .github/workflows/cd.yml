@@ -1,0 +1,97 @@
+name: CD Pipeline
+
+on:
+  push
+    # branches:
+    #   - main
+
+jobs:
+  plan-artifact:
+    name: Terraform plan to file
+    runs-on: ubuntu-latest
+  
+    permissions:
+      contents: read
+      id-token: write 
+
+    defaults:
+      run:
+        working-directory: ${{ vars.TF_PATH }}
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.5.0
+      
+      - name: Configure AWS credentials via OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+        continue-on-error: true
+
+      - name: Terraform Init
+        run: |
+          terraform init -backend=false
+      
+      - name: Terraform plan
+        run: |
+          terraform plan -out=tfplan
+          terraform show -no-color tfplan > plan.txt
+
+      - name: Upload plan artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: terraform-plan
+          path: ${{ vars.TF_PATH }}/plan.txt
+
+      - name: Create Terraform Job Summary
+        if: always()
+        run: |
+          set -e
+
+          TF_VERSION=$(terraform version -json | jq -r '.terraform_version')
+          PLAN_FILE="plan.txt"
+
+          # Extract plan summary line (Plan: X to add, Y to change, Z to destroy)
+          PLAN_SUMMARY=$(grep -E "Plan:" $PLAN_FILE || echo "No changes detected")
+
+          # Count changes (best effort parsing)
+          ADD=$(echo "$PLAN_SUMMARY" | grep -oE '[0-9]+ to add' | grep -oE '[0-9]+' || echo "0")
+          CHANGE=$(echo "$PLAN_SUMMARY" | grep -oE '[0-9]+ to change' | grep -oE '[0-9]+' || echo "0")
+          DESTROY=$(echo "$PLAN_SUMMARY" | grep -oE '[0-9]+ to destroy' | grep -oE '[0-9]+' || echo "0")
+
+          {
+            echo "# Terraform Plan Summary"
+            echo ""
+            echo "## Project Overview"
+            echo "- **Working Directory:** \`${{ vars.TF_PATH }}\`"
+            echo "- **Branch:** ${{ github.ref_name }}"
+            echo "- **Commit:** \`${{ github.sha }}\`"
+            echo "- **Triggered by:** ${{ github.actor }}"
+            echo ""
+
+            echo "## Infrastructure Changes"
+            echo "| Action | Count |"
+            echo "|--------|------|"
+            echo "| Add | $ADD |"
+            echo "| Change | $CHANGE |"
+            echo "| Destroy | $DESTROY |"
+            echo ""
+
+            echo "## Artifact"
+            echo "- Plan file uploaded as GitHub artifact: **terraform-plan**"
+            echo ""
+
+            echo "<details>"
+            echo "<summary>Full Plan Output</summary>"
+            echo ""
+            echo "\`\`\`terraform"
+            cat $PLAN_FILE
+            echo "\`\`\`"
+            echo "</details>"
+          } >> $GITHUB_STEP_SUMMARY
