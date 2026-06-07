@@ -2,13 +2,16 @@ name: CD Pipeline
 
 on:
   push
-#     branches:
-#       - main
+    # branches:
+    #   - main
 
 jobs:
   plan-artifact:
     name: Terraform plan to file
     runs-on: ubuntu-latest
+  
+    permissions:
+      id-token: write 
 
     defaults:
       run:
