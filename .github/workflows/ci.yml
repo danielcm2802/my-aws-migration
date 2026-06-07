@@ -122,7 +122,7 @@ jobs:
             const fs = require('fs');
             const plan = fs.readFileSync('${{ vars.TF_PATH }}/plan_output.txt', 'utf8');
             const truncated = plan.length > 65000 
-              ? plan.substring(0, 65000) + '\n... output truncated ...' 
+              ? plan.substring(0, 60000) + '\n... output truncated ...' 
               : plan;
             
             github.rest.issues.createComment({
