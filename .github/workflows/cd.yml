@@ -2,8 +2,8 @@ name: CD Pipeline
 
 on:
   push
-    # branches:
-    #   - main
+    branches:
+      - main
 
 jobs:
   plan-artifact:
