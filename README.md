@@ -199,3 +199,4 @@ This project demonstrates a production-style AWS microservices architecture usin
 - **Modular cloud design** — separate modules for VPC, EC2, RDS, ALB, and IAM
 - **Secure network segmentation** — microservices and database in isolated private subnets
 - **CI/CD automation** — GitHub Actions for continuous integration and deployment
+
