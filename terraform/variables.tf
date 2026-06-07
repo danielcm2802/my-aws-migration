@@ -146,20 +146,7 @@ variable "alarm_email" {
   default     = "daniels.email@example.com"
 }
 
-
-
-# github credentials
-# ------------------------
-variable "github_user" {
-  type    = string
-  default = "danielcm2802"
-}
-
-variable "repo_name" {
-  type    = string
-  default = "my-aws-migration"
-}
-
+# change it to your own arm
 variable "acm_certificate_arn" {
   type    = string
   default = "arn:aws:acm:us-east-1:123456789012:certificate/dummy"

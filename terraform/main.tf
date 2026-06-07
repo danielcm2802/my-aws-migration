@@ -67,8 +67,6 @@ module "iam" {
   environment  = var.environment
   aws_region   = var.aws_region
   vpc_id       = module.vpc.vpc_id
-  github_user  = var.github_user
-  repo_name    = var.repo_name
 }
 
 
