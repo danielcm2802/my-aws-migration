@@ -33,10 +33,13 @@ jobs:
           terraform init -backend=false
           terraform validate
 
+      - name: Setup TFLint
+        uses: terraform-linters/setup-tflint@v4
+        with:
+        tflint_version: v0.63.1
+
       - name: Run TFLint
-        run: |
-          curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
-          tflint --init && tflint
+        run: tflint --init && tflint --recursive
 
 
   security-scan:
