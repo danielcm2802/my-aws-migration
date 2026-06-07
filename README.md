@@ -172,9 +172,9 @@ Responsibilities:
 - Terraform formatting check (`terraform fmt -check`)
 - Terraform validation (`terraform validate`)
 - Terraform best practices linting (`tflint`)
-- Security scan for hardcoded secrets and misconfigurations (`tfsec` / `checkov`)
-- Runs `terraform plan` and posts the output as a PR comment
-- Authenticates with AWS via GitHub OIDC — never runs `terraform apply`
+- Security scan for hardcoded secrets and misconfigurations (`checkov`)
+- Runs `terraform plan` and posts the output as a PR comment(when doing a pull request)
+- Authenticates with AWS via GitHub OIDC
 
 ### CD Pipeline (`cd.yml`)
 
@@ -185,7 +185,7 @@ Responsibilities:
 - Runs `terraform init` and `terraform plan -out=tfplan`
 - Uploads the plan file as a GitHub Actions artifact for review
 - Posts a summary to the GitHub Actions job summary page
-- Authenticates with AWS via GitHub OIDC — **never runs `terraform apply`**
+- Authenticates with AWS via GitHub OIDC
 
 > **Note:** The CD pipeline does **not** automatically apply infrastructure changes.
 
