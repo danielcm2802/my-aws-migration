@@ -147,7 +147,7 @@ resource "aws_security_group" "alb_sg" {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"] #checkov:skip=CKV_AWS_382: EC2 requires unrestricted egress for AWS service access
+    cidr_blocks = ["0.0.0.0/0"] #checkov:skip=CKV_AWS_382: requires unrestricted egress for AWS service access
   }
 
   tags = {
@@ -201,7 +201,7 @@ resource "aws_security_group" "rds_sg" {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"] #checkov:skip=CKV_AWS_382: EC2 requires unrestricted egress for AWS service access
+    cidr_blocks = ["0.0.0.0/0"] #checkov:skip=CKV_AWS_382: RDS requires unrestricted egress for AWS service access
   }
 
   tags = {
