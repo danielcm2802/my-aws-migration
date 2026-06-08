@@ -143,11 +143,11 @@ resource "aws_security_group" "alb_sg" {
   }
 
   egress {
-    description = "All outbound"
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"] #checkov:skip=CKV_AWS_382: EC2 requires unrestricted egress for AWS service access
+    description     = "Forward traffic to EC2 instances"
+    from_port       = 8080
+    to_port         = 8080
+    protocol        = "tcp"
+    security_groups = [aws_security_group.ec2.id]
   }
 
   tags = {

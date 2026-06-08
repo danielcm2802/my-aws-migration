@@ -29,7 +29,7 @@ resource "aws_launch_template" "app_lt" {
     enabled = true
   }
 
-  # need to add login infor to the image storage
+  # need to add login in for to the image storage
   user_data = base64encode(join("\n", concat(
     [
       "#!/bin/bash",
