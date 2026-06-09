@@ -113,7 +113,12 @@ variable "db_name" {
 variable "db_username" {
   description = "Master username for RDS"
   type        = string
-  default     = "dbadmin"
+  sensitive   = true
+}
+
+variable "db_password" {
+  description = "RDS master password"
+  type        = string
   sensitive   = true
 }
 

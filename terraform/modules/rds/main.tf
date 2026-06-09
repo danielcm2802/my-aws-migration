@@ -24,7 +24,7 @@ resource "aws_db_instance" "postgres_db" {
 
   db_name  = var.db_name
   username = var.db_username
-  password = local.db_password
+  password = var.db_password
 
   multi_az = true
 
@@ -46,16 +46,6 @@ resource "aws_db_instance" "postgres_db" {
   }
 }
 
-
-# gets password for db
-# --------------------------------
-data "aws_secretsmanager_secret_version" "db_password" {
-  secret_id = var.db_password_secret_arn
-}
-
-locals {
-  db_password = jsondecode(data.aws_secretsmanager_secret_version.db_password.secret_string)["password"]
-}
 
 
 # subnet group for multi AZ

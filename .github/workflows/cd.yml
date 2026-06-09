@@ -42,6 +42,9 @@ jobs:
         run: |
           terraform plan -out=tfplan
           terraform show -no-color tfplan > plan.txt
+        env:
+          TF_VAR_db_password: ${{ secrets.TF_VAR_db_password }}
+          TF_VAR_db_username: ${{ secrets.TF_VAR_db_username }}
 
       - name: Upload plan artifact
         uses: actions/upload-artifact@v4

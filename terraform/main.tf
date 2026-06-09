@@ -69,6 +69,8 @@ module "iam" {
   project_name = var.project_name
   environment  = var.environment
   vpc_id       = module.vpc.vpc_id
+  db_password  = var.db_password
+  db_username  = var.db_username
 }
 
 
@@ -110,6 +112,7 @@ module "rds" {
   db_allocated_storage     = var.db_allocated_storage
   db_name                  = var.db_name
   db_username              = var.db_username
+  db_password              = var.db_password
   db_backup_retention_days = var.db_backup_retention_days
   db_password_secret_arn   = module.iam.db_secret_arn
   private_db_subnet_ids    = module.vpc.private_db_subnet_ids

@@ -40,7 +40,7 @@ resource "aws_launch_template" "app_lt" {
     ],
     [for i, image in var.microservice_images : join(" \\\n", [
       "sudo docker run -d",
-      "  -p 808${i + 1}:80",
+      "  -p 808${i}:80",
       "  --name microservice-${i + 1}",
       "  --log-driver=awslogs",
       "  --log-opt awslogs-region=${var.aws_region}",

@@ -23,6 +23,11 @@ variable "db_username" {
   sensitive = true
 }
 
+variable "db_password" {
+  type      = string
+  sensitive = true
+}
+
 variable "db_backup_retention_days" {
   type = number
 }
