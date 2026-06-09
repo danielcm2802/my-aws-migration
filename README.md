@@ -105,10 +105,12 @@ Attach a policy to this role with the minimum permissions needed for `terraform 
 
 Add the following under **Settings → Secrets and variables → Actions**:
 
-| Secret | Description |
+| Secret/variable | Description |
 |---|---|
 | `AWS_ROLE_ARN` | ARN of the IAM role created above (e.g., `arn:aws:iam::123456789012:role/github-actions-role`) |
 | `AWS_REGION` | Target AWS region (e.g., `us-east-1`) |
+| `TF_VAR_db_USERNAME` | Username of the database |
+| `TF_VAR_DB_PASSWORD` | Password of the database |
 
 ---
 
@@ -140,7 +142,17 @@ git clone <repo-url>
 cd my-aws-migration/terraform
 ```
 
-### 2. Initialize Terraform
+### 2. create terraform.tfvars
+
+Create the Terraform environmental variables file:
+
+```bash
+# terraform.tfvars
+db_username = "<USERNAME_OF_DB>"
+db_password = "<PASSOWORD_OF_DB>"
+```
+
+### 3. Initialize Terraform
 
 Downloads required providers and modules:
 
@@ -148,7 +160,7 @@ Downloads required providers and modules:
 terraform init
 ```
 
-### 3. Validate configuration
+### 4. Validate configuration
 
 Checks syntax and correctness:
 
@@ -156,7 +168,7 @@ Checks syntax and correctness:
 terraform validate
 ```
 
-### 4. Run Terraform plan
+### 5. Run Terraform plan
 
 Preview infrastructure changes before any deployment:
 
