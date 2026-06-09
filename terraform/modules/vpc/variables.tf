@@ -33,3 +33,15 @@ variable "private_app_subnet_cidr" {
 variable "ec2_sg_id" {
   type = string
 }
+
+variable "url" {
+  type = string
+}
+
+variable "lb_dns_name" {
+  type = string
+}
+
+variable "lb_zone_id" {
+  type = string
+}

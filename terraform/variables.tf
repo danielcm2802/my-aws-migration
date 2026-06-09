@@ -13,6 +13,11 @@ variable "aws_region" {
   default = "us-east-1"
 }
 
+variable "url" {
+  type    = string
+  default = "myapp.com"
+}
+
 
 
 # VPC variables

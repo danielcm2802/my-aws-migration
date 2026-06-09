@@ -27,3 +27,13 @@ output "launch_template_id" {
   description = "ID of the EC2 Launch Template"
   value       = aws_launch_template.app_lt.id
 }
+
+output "lb_dns_name" {
+  description = "DNS name of ALB"
+  value       = aws_lb.app_lb.dns_name
+}
+
+output "lb_zone_id" {
+  description = "zone ID of ALB"
+  value       = aws_lb.app_lb.zone_id
+}

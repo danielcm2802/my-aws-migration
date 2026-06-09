@@ -54,6 +54,9 @@ module "vpc" {
   private_app_subnet_cidr = var.private_app_subnet_cidrs
   private_db_subnet_cidr  = var.private_db_subnet_cidrs
   ec2_sg_id               = module.iam.ec2_security_group_id
+  url                     = var.url
+  lb_dns_name             = module.ec2.lb_dns_name
+  lb_zone_id              = module.ec2.lb_zone_id
 }
 
 

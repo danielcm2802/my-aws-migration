@@ -66,6 +66,26 @@ resource "aws_subnet" "private_db_sub" {
 
 
 
+# route 53
+# --------------
+resource "aws_route53_zone" "main" {
+  name = var.url
+}
+
+resource "aws_route53_record" "alb" {
+  zone_id = aws_route53_zone.main.zone_id
+  name    = var.url
+  type    = "A"
+
+  alias {
+    name                   = var.lb_dns_name
+    zone_id                = var.lb_zone_id
+    evaluate_target_health = true
+  }
+}
+
+
+
 # internet gateway
 # ------------------------
 resource "aws_internet_gateway" "internet_gw" {
