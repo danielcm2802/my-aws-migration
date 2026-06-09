@@ -147,7 +147,7 @@ resource "aws_security_group" "alb_sg" {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"] #checkov:skip=CKV_AWS_382: EC2 requires unrestricted egress for AWS service access
+    cidr_blocks = ["0.0.0.0/0"] #checkov:skip=CKV_AWS_382: requires unrestricted egress for AWS service access
   }
 
   tags = {
@@ -201,7 +201,7 @@ resource "aws_security_group" "rds_sg" {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"] #checkov:skip=CKV_AWS_382: EC2 requires unrestricted egress for AWS service access
+    cidr_blocks = ["0.0.0.0/0"] #checkov:skip=CKV_AWS_382: RDS requires unrestricted egress for AWS service access
   }
 
   tags = {
@@ -228,8 +228,8 @@ resource "aws_secretsmanager_secret_version" "db_credentials" {
   secret_id = aws_secretsmanager_secret.db_credentials.id
 
   secret_string = jsonencode({
-    username = "admin"
-    password = "REPLACE_ME_VIA_CLI_OR_SECRETS_PIPELINE"
+    username = var.db_username
+    password = var.db_password
   })
 
   lifecycle {

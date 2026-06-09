@@ -29,7 +29,7 @@ resource "aws_launch_template" "app_lt" {
     enabled = true
   }
 
-  # need to add login infor to the image storage
+  # need to add login in for to the image storage
   user_data = base64encode(join("\n", concat(
     [
       "#!/bin/bash",
@@ -40,7 +40,7 @@ resource "aws_launch_template" "app_lt" {
     ],
     [for i, image in var.microservice_images : join(" \\\n", [
       "sudo docker run -d",
-      "  -p 808${i + 1}:80",
+      "  -p 808${i}:80",
       "  --name microservice-${i + 1}",
       "  --log-driver=awslogs",
       "  --log-opt awslogs-region=${var.aws_region}",

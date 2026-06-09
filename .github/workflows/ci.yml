@@ -112,8 +112,11 @@ jobs:
       - name: Terraform Plan
         id: plan
         run: |
-          terraform plan -no-color -input=false 2>&1 | tee plan_output.txt
-          echo "exitcode=${PIPESTATUS[0]}" >> $GITHUB_OUTPUT
+          terraform plan -out=tfplan
+          terraform show -no-color tfplan > plan_output.txt
+        env:
+          TF_VAR_db_password: ${{ secrets.TF_VAR_DB_PASSWORD }}
+          TF_VAR_db_username: ${{ secrets.TF_VAR_db_USERNAME }}
         continue-on-error: true
 
       - name: PR Comment

@@ -211,7 +211,7 @@ Responsibilities:
 
 ## Summary
 
-This project demonstrates a production-style AWS microservices architecture using:
+This project demonstrates an AWS microservices architecture using:
 
 - **Infrastructure as Code** — Terraform with reusable modules
 - **Modular cloud design** — separate modules for VPC, EC2, RDS, ALB, and IAM

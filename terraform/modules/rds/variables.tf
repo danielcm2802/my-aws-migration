@@ -23,12 +23,13 @@ variable "db_username" {
   sensitive = true
 }
 
-variable "db_backup_retention_days" {
-  type = number
+variable "db_password" {
+  type      = string
+  sensitive = true
 }
 
-variable "db_password_secret_arn" {
-  type = string
+variable "db_backup_retention_days" {
+  type = number
 }
 
 variable "private_db_subnet_ids" {

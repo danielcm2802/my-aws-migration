@@ -54,6 +54,9 @@ module "vpc" {
   private_app_subnet_cidr = var.private_app_subnet_cidrs
   private_db_subnet_cidr  = var.private_db_subnet_cidrs
   ec2_sg_id               = module.iam.ec2_security_group_id
+  url                     = var.url
+  lb_dns_name             = module.ec2.lb_dns_name
+  lb_zone_id              = module.ec2.lb_zone_id
 }
 
 
@@ -66,6 +69,8 @@ module "iam" {
   project_name = var.project_name
   environment  = var.environment
   vpc_id       = module.vpc.vpc_id
+  db_password  = var.db_password
+  db_username  = var.db_username
 }
 
 
@@ -107,11 +112,10 @@ module "rds" {
   db_allocated_storage     = var.db_allocated_storage
   db_name                  = var.db_name
   db_username              = var.db_username
+  db_password              = var.db_password
   db_backup_retention_days = var.db_backup_retention_days
-  db_password_secret_arn   = module.iam.db_secret_arn
   private_db_subnet_ids    = module.vpc.private_db_subnet_ids
   rds_sg_id                = module.iam.rds_security_group_id
-
 }
 
 
