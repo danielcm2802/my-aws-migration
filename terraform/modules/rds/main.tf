@@ -9,6 +9,9 @@ terraform {
   }
 }
 
+
+# RDS db postgres
+# ---------------------
 resource "aws_db_instance" "postgres_db" {
   identifier                 = "${var.project_name}-postgres"
   engine                     = "postgres"
@@ -44,7 +47,8 @@ resource "aws_db_instance" "postgres_db" {
 }
 
 
-
+# gets password for db
+# --------------------------------
 data "aws_secretsmanager_secret_version" "db_password" {
   secret_id = var.db_password_secret_arn
 }
@@ -54,7 +58,8 @@ locals {
 }
 
 
-
+# subnet group for multi AZ
+# ----------------------------
 resource "aws_db_subnet_group" "db_sg" {
   name       = "${var.project_name}-db-subnet-group"
   subnet_ids = var.private_db_subnet_ids
