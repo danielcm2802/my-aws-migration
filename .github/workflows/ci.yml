@@ -115,8 +115,8 @@ jobs:
           terraform plan -out=tfplan
           terraform show -no-color tfplan > plan_output.txt
         env:
-          TF_VAR_db_password: ${{ secrets.TF_VAR_db_password }}
-          TF_VAR_db_username: ${{ secrets.TF_VAR_db_username }}
+          TF_VAR_db_password: ${{ secrets.TF_VAR_DB_PASSWORD }}
+          TF_VAR_db_username: ${{ secrets.TF_VAR_db_USERNAME }}
         continue-on-error: true
 
       - name: PR Comment
