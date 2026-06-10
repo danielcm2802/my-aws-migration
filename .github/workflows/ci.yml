@@ -7,8 +7,8 @@ on:
       - main
 
 defaults:
-      run:
-        working-directory: ${{ vars.TF_PATH }}
+  run:
+    working-directory: ${{ vars.TF_PATH }}
 
 jobs:
   lint-validate:
