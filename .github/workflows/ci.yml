@@ -6,15 +6,14 @@ on:
     branches:
       - main
 
+defaults:
+      run:
+        working-directory: ${{ vars.TF_PATH }}
 
 jobs:
   lint-validate:
     name: Lint and Validate Terraform
     runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        working-directory: ${{ vars.TF_PATH }}
 
     steps:
       - name: Checkout
@@ -23,7 +22,7 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: 1.6.6
+          terraform_version: 1.5.0
 
       - name: Terraform Format Check
         run: terraform fmt -check -recursive
@@ -45,10 +44,6 @@ jobs:
   security-scan:
     name: Terraform Security Scan
     runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        working-directory: ${{ vars.TF_PATH }}
 
     steps:
       - uses: actions/checkout@v4
@@ -85,10 +80,6 @@ jobs:
       pull-requests: write  
       id-token: write      
 
-    defaults:
-      run:
-        working-directory: ${{ vars.TF_PATH }}
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -105,13 +96,10 @@ jobs:
           aws-region: ${{ vars.AWS_REGION }}
         continue-on-error: true
 
-      - name: Terraform Init
-        run: |
-          terraform init -backend=false
-
       - name: Terraform Plan
         id: plan
         run: |
+          terraform init -backend=false
           terraform plan -out=tfplan
           terraform show -no-color tfplan > plan_output.txt
         env:
@@ -130,15 +118,19 @@ jobs:
             const truncated = plan.length > 65000 
               ? plan.substring(0, 60000) + '\n... output truncated ...' 
               : plan;
+
+            const body = [
+              '## Terraform Plan Output',
+              '```',
+              truncated,
+              '```'
+            ].join('\n');
+
             
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `## Terraform Plan Output
-              \`\`\`hcl
-              ${truncated}
-              \`\`\`
-              `
+              body: body
             })
   
