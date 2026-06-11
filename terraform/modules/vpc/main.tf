@@ -58,7 +58,7 @@ resource "aws_subnet" "private_db_sub" {
   map_public_ip_on_launch = true
 
   tags = {
-    Name        = "${var.project_name}-private-app-${var.availability_zones[count.index]}"
+    Name        = "${var.project_name}-private-db-${var.availability_zones[count.index]}"
     Environment = var.environment
 
   }
